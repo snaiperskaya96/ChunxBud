@@ -34,3 +34,11 @@ ENABLE_HOST_UARTID := 0
 ENABLE_SSL = 1
 
 SERIAL_BAUD_RATE = 115200
+
+COMPONENT_SRCDIRS += \
+	thirdparty/nanopb \
+	app/proto
+
+COMPONENT_INCDIRS += \
+	thirdparty/nanopb \
+	app/

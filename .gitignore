@@ -1,4 +1,5 @@
 out
 .vscode
 cert
-include/ssl/*
+include/ssl/private_key.h
+include/ssl/cert.h
