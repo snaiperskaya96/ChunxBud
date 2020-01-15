@@ -17,7 +17,7 @@ RBOOT_ROM_0 		?= rom0
 RBOOT_ROM_1		?= rom1
 
 ## size of the spiffs to create
-SPIFF_SIZE			?= 65536
+SPIFF_SIZE			?= 659456
 
 ## option to completely disable spiffs
 #DISABLE_SPIFFS		?= 1
@@ -29,11 +29,12 @@ RBOOT_SPIFFS_1		?= 0x300000
 
 # Emulate UART 0
 ENABLE_HOST_UARTID := 0
-# make SMING_ARCH=Esp8266 SPI_MODE=dio SPI_SIZE=4M COM_SPEED_ESPTOOL=921600
+# make SMING_ARCH=Esp8266 SPI_MODE=dio SPI_SIZE=4M COM_SPEED_ESPTOOL=1500000
 
 ENABLE_SSL = 1
 
 SERIAL_BAUD_RATE = 115200
+COM_SPEED_ESPTOOL = 921600
 
 COMPONENT_SRCDIRS += \
 	thirdparty/nanopb \

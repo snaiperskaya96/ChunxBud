@@ -116,6 +116,14 @@ void OnReady()
 
 	Serial.println("System Ready.");
 
+	system_print_meminfo ();
+//uint32_t size = flashmem_get_size_bytes();
+//spiffs_mount(); // Mount file system, in order to work with files
+//Serial.println("Flash memory size = " + String(size));
+
+spiffs_config cfg = spiffs_get_storage_config();
+Serial.println("SPIFFS size = " + String(cfg.phys_size));
+
 	WifiManager::OnConnected = std::bind(OnConnected);
 	WifiManager::OnConnectionFail = std::bind(OnConnectionFailed);
 	WifiManager::Init();

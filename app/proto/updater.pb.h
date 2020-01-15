@@ -14,31 +14,79 @@ extern "C" {
 #endif
 
 /* Struct definitions */
-typedef struct _Version {
-    pb_callback_t VersionString;
-} Version;
+typedef PB_BYTES_ARRAY_T(64) FUpdateBinary_RomChunk_t;
+typedef struct _FUpdateBinary {
+    uint32_t ChunkId;
+    uint32_t ChunkMax;
+    FUpdateBinary_RomChunk_t RomChunk;
+} FUpdateBinary;
+
+typedef struct _FVersion {
+    char VersionString[16];
+} FVersion;
+
+typedef struct _FChunxMessage {
+    uint32_t MessageType;
+    pb_size_t which_Message;
+    union {
+        FVersion Version;
+        FUpdateBinary UpdateBinary;
+    } Message;
+} FChunxMessage;
 
 
 /* Initializer values for message structs */
-#define Version_init_default                     {{{NULL}, NULL}}
-#define Version_init_zero                        {{{NULL}, NULL}}
+#define FVersion_init_default                    {""}
+#define FUpdateBinary_init_default               {0, 0, {0, {0}}}
+#define FChunxMessage_init_default               {0, 0, {FVersion_init_default}}
+#define FVersion_init_zero                       {""}
+#define FUpdateBinary_init_zero                  {0, 0, {0, {0}}}
+#define FChunxMessage_init_zero                  {0, 0, {FVersion_init_zero}}
 
 /* Field tags (for use in manual encoding/decoding) */
-#define Version_VersionString_tag                1
+#define FUpdateBinary_ChunkId_tag                1
+#define FUpdateBinary_ChunkMax_tag               2
+#define FUpdateBinary_RomChunk_tag               3
+#define FVersion_VersionString_tag               1
+#define FChunxMessage_Version_tag                2
+#define FChunxMessage_UpdateBinary_tag           3
+#define FChunxMessage_MessageType_tag            1
 
 /* Struct field encoding specification for nanopb */
-#define Version_FIELDLIST(X, a) \
-X(a, CALLBACK, SINGULAR, STRING,   VersionString,     1)
-#define Version_CALLBACK pb_default_field_callback
-#define Version_DEFAULT NULL
+#define FVersion_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, STRING,   VersionString,     1)
+#define FVersion_CALLBACK NULL
+#define FVersion_DEFAULT NULL
 
-extern const pb_msgdesc_t Version_msg;
+#define FUpdateBinary_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, UINT32,   ChunkId,           1) \
+X(a, STATIC,   SINGULAR, UINT32,   ChunkMax,          2) \
+X(a, STATIC,   SINGULAR, BYTES,    RomChunk,          3)
+#define FUpdateBinary_CALLBACK NULL
+#define FUpdateBinary_DEFAULT NULL
+
+#define FChunxMessage_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, UINT32,   MessageType,       1) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (Message,Version,Message.Version),   2) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (Message,UpdateBinary,Message.UpdateBinary),   3)
+#define FChunxMessage_CALLBACK NULL
+#define FChunxMessage_DEFAULT NULL
+#define FChunxMessage_Message_Version_MSGTYPE FVersion
+#define FChunxMessage_Message_UpdateBinary_MSGTYPE FUpdateBinary
+
+extern const pb_msgdesc_t FVersion_msg;
+extern const pb_msgdesc_t FUpdateBinary_msg;
+extern const pb_msgdesc_t FChunxMessage_msg;
 
 /* Defines for backwards compatibility with code written before nanopb-0.4.0 */
-#define Version_fields &Version_msg
+#define FVersion_fields &FVersion_msg
+#define FUpdateBinary_fields &FUpdateBinary_msg
+#define FChunxMessage_fields &FChunxMessage_msg
 
 /* Maximum encoded size of messages (where known) */
-/* Version_size depends on runtime parameters */
+#define FVersion_size                            17
+#define FUpdateBinary_size                       78
+#define FChunxMessage_size                       86
 
 #ifdef __cplusplus
 } /* extern "C" */

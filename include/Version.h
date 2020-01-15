@@ -3,7 +3,7 @@
 #define VERSION_H
 #include <string>
 
-static constexpr char CurrentVersion[] = "1.0.4";
+static constexpr char CurrentVersion[] = "1.0.7";
 
 enum EVersionCompareResult
 {

@@ -6,7 +6,13 @@
 #error Regenerate this file with the current version of nanopb generator.
 #endif
 
-PB_BIND(Version, Version, AUTO)
+PB_BIND(FVersion, FVersion, AUTO)
+
+
+PB_BIND(FUpdateBinary, FUpdateBinary, AUTO)
+
+
+PB_BIND(FChunxMessage, FChunxMessage, AUTO)
 
 
 

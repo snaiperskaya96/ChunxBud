@@ -10,9 +10,11 @@ include $(SMING_HOME)/project.mk
 
 include thirdparty/nanopb/extra/nanopb.mk
 
+PROTOBUF_PATH = $(shell pwd)/thirdparty/protobuf/
+
 App-build: before-build
 
 before-build: build-pb-files
 
 build-pb-files:
-	$(PROTOC) $(PROTOC_OPTS) --proto_path=thirdparty/proto/ --nanopb_out=app/ thirdparty/proto/proto/*.proto
+	./thirdparty/nanopb/generator/nanopb_generator.py -I ./thirdparty/proto ./thirdparty/proto/proto/*.proto -D ./app/

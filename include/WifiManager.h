@@ -26,7 +26,7 @@ public:
 protected:
     static uint8_t CurrentConnectionIndex;
     static constexpr WifiConnectionData Connections[] = {
-        {"BTHub6-F35M_2GEXT_", "Lq7RCE6JnVcN"},
+       // {"BTHub6-F35M_2GEXT_", "Lq7RCE6JnVcN"},
         {"BTHub6-F35M_2GEXT", "Lq7RCE6JnVcN"},
         {"Pixel_5361", "febbraio"}
     };
