@@ -1,6 +1,5 @@
 #include "UpdateManager.h"
 #include "SmingCore.h"
-#include "mjson.h"
 #include "Version.h"
 #include "pb_decode.h"
 #include "pb_encode.h"
